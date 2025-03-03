@@ -9,7 +9,7 @@ namespace DeepLearningFromScratch.Tests
                                   0, 0, 1, 0, 0,
                                   0, 0, 0, 0, 0,
                                   0, 0, 0, 0, 0,], 3, 3, 1)]
-        public void Access_CanAccessNumbersInMatrix_ReturnsSeven(
+        public void Access_CanAccessNumbersInMatrix_ReturnsCorrectValue(
             int rows,
             int columns,
             float[] testValues,
@@ -32,6 +32,15 @@ namespace DeepLearningFromScratch.Tests
             float[] testValues)
         {
             Assert.Throws<ArgumentException>(() => new Matrix(rows, columns, testValues));
+        }
+
+        [Test]
+        public void Multiply_CanOnlyMultiplyMatricesWithCompatibleSize_ThrowsArgumentException()
+        {
+            Matrix testMatrix1 = new(1, 1, [1]);
+            Matrix testMatrix2 = new(2, 2, [1, 1, 1, 1]);
+
+            Assert.Throws<ArgumentException>(() => Matrix.Multiply(testMatrix1, testMatrix2));
         }
     }
 }

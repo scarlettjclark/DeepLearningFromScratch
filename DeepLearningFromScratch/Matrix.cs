@@ -25,5 +25,17 @@
             int accessIndex = (row - 1) * _columns + (column - 1);
             return _storedValues[accessIndex];
         }
+
+        public static Matrix Multiply(Matrix matrix1, Matrix matrix2)
+        {
+            if(matrix1._rows != matrix2._columns)
+            {
+                throw new ArgumentException("Matrices must have compatible sizes in order to multiply. Matrix 1 has " + matrix1._rows.ToString() + " rows but Matrix 2 has only " + matrix2._columns + " columns");
+            }
+            else
+            {
+                return new(0, 0, []);
+            }
+        }
     }
 }
