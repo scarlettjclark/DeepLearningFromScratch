@@ -22,5 +22,16 @@ namespace DeepLearningFromScratch.Tests
             
             Assert.That(matrix.Access(testRow, testColumn), Is.EqualTo(expectedResult));
         }
+
+        [TestCase (3, 2, (float[]) [1, 2, 3, 4, 5, 6, 7])]
+        [TestCase (0, 0, (float[]) [1])]
+        [TestCase (1, 2, (float[]) [])]
+        public void Matrix_CreatingAMatrixRequiresValuesEqualToItsSize_ThrowsArgumentException(
+            int rows,
+            int columns,
+            float[] testValues)
+        {
+            Assert.Throws<ArgumentException>(() => new Matrix(rows, columns, testValues));
+        }
     }
 }
