@@ -4,9 +4,9 @@ namespace DeepLearningFromScratch
 {
     public class Matrix
     {
-        readonly int _rows;
-        readonly int _columns;
-        readonly float[] _storedValues;
+        public int Rows { get; private set; }
+        public int Columns { get; private set; }
+        public float[] StoredValues { get; set; }
         public Matrix(int rows, int columns, float[] storedValues)
         {
             if (storedValues.Length != rows * columns)
@@ -16,52 +16,52 @@ namespace DeepLearningFromScratch
             }
             else
             {
-                _rows = rows;
-                _columns = columns;
-                _storedValues = storedValues;
+                Rows = rows;
+                Columns = columns;
+                StoredValues = storedValues;
             }
         }
         
         public float Access(int row, int column)
         {
-            int accessIndex = (row - 1) * _columns + (column - 1);
-            return _storedValues[accessIndex];
+            int accessIndex = (row - 1) * Columns + (column - 1);
+            return StoredValues[accessIndex];
         }
 
         public static Matrix Multiply(Matrix matrix1, Matrix matrix2)
         {
-            if(matrix1._columns != matrix2._rows)
+            if(matrix1.Columns != matrix2.Rows)
             {
-                throw new ArgumentException("Matrices must have compatible sizes in order to multiply. Matrix 1 has " + matrix1._rows.ToString() + " rows but Matrix 2 has only " + matrix2._columns + " columns");
+                throw new ArgumentException("Matrices must have compatible sizes in order to multiply. Matrix 1 has " + matrix1.Rows.ToString() + " rows but Matrix 2 has only " + matrix2.Columns + " columns");
             }
             else
             {
-                float[] outputValues = new float[matrix1._rows * matrix2._columns];
-                for (int row = 1; row <= matrix1._rows; row++)
+                float[] outputValues = new float[matrix1.Rows * matrix2.Columns];
+                for (int row = 1; row <= matrix1.Rows; row++)
                 {
-                    for (int column = 1; column <= matrix2._columns; column++)
+                    for (int column = 1; column <= matrix2.Columns; column++)
                     {
-                        outputValues[(row - 1) * matrix2._columns + (column - 1)] = 0;
-                        for(int index = 1; index <= matrix1._columns; index++)
+                        outputValues[(row - 1) * matrix2.Columns + (column - 1)] = 0;
+                        for(int index = 1; index <= matrix1.Columns; index++)
                         {
-                            outputValues[(row - 1) * matrix2._columns + (column - 1)] += matrix1.Access(row, index) * matrix2.Access(index, column);
+                            outputValues[(row - 1) * matrix2.Columns + (column - 1)] += matrix1.Access(row, index) * matrix2.Access(index, column);
                         }
                     }
                 }
 
-                return new Matrix(matrix1._rows, matrix2._columns, outputValues);
+                return new Matrix(matrix1.Rows, matrix2.Columns, outputValues);
 
             }
         }
 
         public bool Equals(Matrix other)
         {
-            if (other._rows ==  _rows && other._columns == _columns)
+            if (other.Rows ==  Rows && other.Columns == Columns)
             {
                 bool result = true;
-                for (int index = 0; index < _storedValues.Length; index++)
+                for (int index = 0; index < StoredValues.Length; index++)
                 {
-                    result &= _storedValues[index] == other._storedValues[index];
+                    result &= StoredValues[index] == other.StoredValues[index];
                 }
                 return result;
             }

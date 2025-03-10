@@ -18,12 +18,17 @@ namespace Tests
                                 new Matrix (2, 2, [0.5f, 0.5f, 0.5f, 0.5f])];
             Assert.Throws<ArgumentException>(() => new NeuralNetwork(4, [2, 2, 2, 2], weights));
         }
-        /*[Test]
+        [Test]
+        public void NeuralNetwork_NeuralNetworkMustBeConstructedWithAtLeast2Layers_ThrowsArgumentException()
+        {
+            Assert.Throws<ArgumentException>(() => new NeuralNetwork(1, [2], []));
+        }
+        [Test]
         public void NeuralNetwork_NeuralNetworkMustBeConstructedWithCorrectlyShapedWeightMatrix_ThrowsArgumentException()
         {
-            Matrix weights = new Matrix(0, 0, []);
+            Matrix weights = new(0, 0, []);
 
             Assert.Throws<ArgumentException>(() => new NeuralNetwork(2, [16, 16], [weights]));
-        }*/
+        }
     }
 }
