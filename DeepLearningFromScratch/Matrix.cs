@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Xml;
 
 namespace DeepLearningFromScratch
 {
@@ -69,6 +70,20 @@ namespace DeepLearningFromScratch
             {
                 return false;
             }
+        }
+
+        public override string ToString()
+        {
+            String output = "\n";
+            for (int row = 0; row < Rows; row++)
+            {
+                for (int column = 0; column < Columns; column++)
+                {
+                    output += StoredValues[(row * Columns) + column].ToString() + " ";
+                }
+                output += "\n";
+            }
+            return output;
         }
     }
 }

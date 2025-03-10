@@ -1,7 +1,13 @@
-﻿namespace DeepLearningFromScratch
+﻿using System.Diagnostics;
+
+namespace DeepLearningFromScratch
 {
     public class NeuralNetwork
     {
+        public int Layers { get; set; }
+        public int[] LayerSizes { get; set; }
+        public Matrix[] Weights { get; set; }
+
         public NeuralNetwork(int layers, int[] layerSizes, Matrix[] weights)
         {
             if (layers < 2)
@@ -25,6 +31,20 @@
                     throw new ArgumentException("Weight matrices should have rows and columns that match their layers. Expected " + layerSizes[weightIndex].ToString() + "*" + layerSizes[weightIndex] + " matrix, but got " + weights[weightIndex].Rows.ToString() + " * " + weights[weightIndex].Columns.ToString() + ".");
                 }
             }
+            Layers = layers;
+            LayerSizes = layerSizes;
+            Weights = weights;
+        }
+
+        public Matrix Input(Matrix input)
+        {
+            Matrix currentLayer = input;
+            foreach (Matrix weightMatrix in Weights)
+            {
+                currentLayer = Matrix.Multiply(weightMatrix, currentLayer);
+                Debug.WriteLine(currentLayer.ToString());
+            }
+            return currentLayer;
         }
     }
 }
